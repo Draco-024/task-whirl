@@ -40,12 +40,20 @@ const TaskJar = ({ onClick, animate = false, size = "medium" }: TaskJarProps) =>
       )}
       onClick={onClick}
     >
+      {/* Outer glow effect */}
+      <div className="absolute inset-0 blur-md rounded-2xl bg-taskjar-light/30 transform scale-105"></div>
+      
       {/* Glass effect for jar */}
-      <div className="absolute inset-0 rounded-b-2xl rounded-t-lg border-4 border-taskjar-dark bg-white/30 backdrop-blur-sm overflow-hidden shadow-lg">
+      <div className="absolute inset-0 rounded-b-2xl rounded-t-lg border-2 border-white/30 bg-white/10 backdrop-blur-lg overflow-hidden shadow-lg">
+        {/* Highlight reflection */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute -top-[150%] -left-[50%] w-[200%] h-[300%] bg-gradient-to-br from-white/40 via-white/5 to-transparent rotate-30 transform skew-x-12 pointer-events-none"></div>
+        </div>
+        
         {/* Task papers with gradient */}
         <div 
           className={cn(
-            "absolute bottom-0 left-0 right-0 bg-gradient-to-b from-taskjar-light to-taskjar transition-all duration-500",
+            "absolute bottom-0 left-0 right-0 bg-gradient-to-b from-taskjar-light/90 to-taskjar/90 transition-all duration-500",
             fillLevel
           )}
         >
@@ -54,7 +62,7 @@ const TaskJar = ({ onClick, animate = false, size = "medium" }: TaskJarProps) =>
               {Array.from({ length: Math.min(tasks.length * 2, 25) }).map((_, i) => (
                 <div 
                   key={i}
-                  className="absolute bg-white rounded-sm shadow-sm p-1"
+                  className="absolute bg-white/90 rounded-sm shadow-sm p-1"
                   style={{
                     width: `${Math.random() * 20 + 10}px`,
                     height: `${Math.random() * 15 + 5}px`,
@@ -69,9 +77,12 @@ const TaskJar = ({ onClick, animate = false, size = "medium" }: TaskJarProps) =>
           )}
         </div>
         
+        {/* Glass reflection */}
+        <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-40 pointer-events-none"></div>
+        
         {/* Jar lid with shine effect */}
-        <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 w-[90%] h-4 bg-taskjar-dark rounded-t-lg z-10">
-          <div className="absolute top-1 left-1/4 w-1/2 h-1 bg-white/30 rounded-full"></div>
+        <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 w-[90%] h-4 bg-gradient-to-r from-taskjar-dark/90 via-taskjar to-taskjar-dark/90 rounded-t-lg z-10 border border-white/20">
+          <div className="absolute top-1 left-1/4 w-1/2 h-1 bg-white/50 rounded-full"></div>
         </div>
       </div>
       

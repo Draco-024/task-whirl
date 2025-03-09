@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Plus } from "lucide-react";
+import { Plus, Smartphone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTaskContext } from "@/context/TaskContext";
 import { useShakeDetection } from "@/hooks/useShakeDetection";
@@ -15,6 +15,7 @@ const HomeScreen = () => {
   const { tasks, pickRandomTask, shakeEnabled } = useTaskContext();
   const { toast } = useToast();
   const [isShaking, setIsShaking] = useState(false);
+  const [hasShownInitialToast, setHasShownInitialToast] = useState(false);
 
   const handlePickTask = () => {
     const randomTask = pickRandomTask();
@@ -44,13 +45,15 @@ const HomeScreen = () => {
   useShakeDetection(shakeEnabled, handleShake);
 
   useEffect(() => {
-    if (shakeEnabled) {
+    // Only show the toast once per session
+    if (shakeEnabled && !hasShownInitialToast) {
       toast({
         title: "Shake to pick",
         description: "Shake your device to randomly pick a task",
       });
+      setHasShownInitialToast(true);
     }
-  }, []);
+  }, [shakeEnabled, hasShownInitialToast, toast]);
 
   return (
     <Layout title="Task Jar" showSettingsButton>
@@ -58,6 +61,13 @@ const HomeScreen = () => {
         <div id="task-jar" className="my-6 transition-transform hover:scale-105 animate-pulse-gentle">
           <TaskJar onClick={handlePickTask} animate />
         </div>
+
+        {shakeEnabled && (
+          <div className="flex items-center gap-2 text-sm text-muted-foreground bg-background/70 backdrop-blur-sm px-3 py-1.5 rounded-full border border-border/30 shadow-sm">
+            <Smartphone className="w-3.5 h-3.5" />
+            <span>Shake to pick a random task</span>
+          </div>
+        )}
 
         <Button 
           onClick={handlePickTask} 
