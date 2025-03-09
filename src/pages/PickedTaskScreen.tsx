@@ -46,25 +46,25 @@ const PickedTaskScreen = () => {
       {showConfetti && <Confetti />}
       
       <div className="flex flex-col items-center justify-center h-[70vh] max-w-md mx-auto">
-        <div className="text-center space-y-6">
+        <div className="text-center space-y-8 w-full">
           <h2 className="text-xl font-medium text-muted-foreground">Your task for today:</h2>
           
-          <div className="bg-card border border-border rounded-xl p-8 shadow-md animate-scale-up">
-            <h1 className="text-3xl font-bold text-primary">{task.name}</h1>
+          <div className="bg-gradient-to-br from-card to-secondary/30 backdrop-blur-sm border border-border/50 rounded-2xl p-10 shadow-lg animate-scale-up">
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-taskjar-dark to-taskjar bg-clip-text text-transparent">{task.name}</h1>
           </div>
           
-          <div className="pt-6 space-y-4">
+          <div className="pt-8 space-y-4 w-full">
             <Button 
               onClick={handlePickAnother}
               variant="outline"
-              className="w-full"
+              className="w-full py-6 rounded-xl border-taskjar/30 hover:bg-taskjar/5 transition-all duration-300"
             >
               Pick Another
             </Button>
             
             <Button 
               onClick={() => navigate("/home")}
-              className="w-full bg-taskjar hover:bg-taskjar-dark"
+              className="w-full py-6 rounded-xl bg-gradient-to-r from-taskjar to-taskjar-dark hover:shadow-lg transition-all duration-300"
             >
               Back to Tasks
             </Button>

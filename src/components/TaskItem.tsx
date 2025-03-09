@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { Task, useTaskContext } from "@/context/TaskContext";
-import { Trash2 } from "lucide-react";
+import { Trash2, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -47,7 +47,7 @@ const TaskItem = ({ task }: TaskItemProps) => {
   return (
     <div 
       className={cn(
-        "bg-card rounded-lg shadow-sm mb-2 overflow-hidden transition-all duration-300 relative",
+        "bg-card rounded-lg shadow-md mb-3 overflow-hidden transition-all duration-300 relative hover:shadow-lg",
         isDeleting && "opacity-0 scale-95"
       )}
     >
@@ -59,7 +59,7 @@ const TaskItem = ({ task }: TaskItemProps) => {
         onTouchEnd={handleTouchEnd}
       >
         <div className="flex-1">
-          <p className="font-medium">{task.name}</p>
+          <p className="font-medium text-foreground">{task.name}</p>
         </div>
         <Button
           variant="ghost"
@@ -72,7 +72,7 @@ const TaskItem = ({ task }: TaskItemProps) => {
         </Button>
       </div>
       <div 
-        className="absolute right-0 top-0 bottom-0 flex items-center justify-center bg-gradient-to-r from-destructive/80 to-destructive text-destructive-foreground px-4 transition-opacity duration-300"
+        className="absolute right-0 top-0 bottom-0 flex items-center justify-center bg-gradient-to-r from-accent/50 to-accent text-accent-foreground px-4 transition-opacity duration-300"
         style={{ 
           opacity: translateX < 0 ? Math.min(Math.abs(translateX) / 50, 1) : 0,
           width: '80px'

@@ -21,10 +21,10 @@ const AddTaskScreen = () => {
 
   return (
     <Layout title="Add Task" showBackButton>
-      <div className="max-w-md mx-auto">
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="space-y-2">
-            <label htmlFor="task-name" className="block text-sm font-medium">
+      <div className="max-w-md mx-auto mt-6">
+        <form onSubmit={handleSubmit} className="space-y-8">
+          <div className="space-y-3">
+            <label htmlFor="task-name" className="block text-lg font-medium">
               Task Name
             </label>
             <Input
@@ -34,22 +34,22 @@ const AddTaskScreen = () => {
               value={taskName}
               onChange={(e) => setTaskName(e.target.value)}
               autoFocus
-              className="w-full"
+              className="w-full py-6 text-lg rounded-xl border-border/50 focus:border-taskjar focus:ring-taskjar"
             />
           </div>
 
-          <div className="flex space-x-4">
+          <div className="flex space-x-4 pt-4">
             <Button
               type="button"
               variant="outline"
-              className="flex-1"
+              className="flex-1 py-6 rounded-xl border-taskjar/30 hover:bg-taskjar/5 transition-all duration-300"
               onClick={() => navigate("/home")}
             >
               Cancel
             </Button>
             <Button 
               type="submit" 
-              className="flex-1 bg-taskjar hover:bg-taskjar-dark"
+              className="flex-1 py-6 rounded-xl bg-gradient-to-r from-taskjar to-taskjar-dark hover:shadow-lg transition-all duration-300"
               disabled={!taskName.trim()}
             >
               Save Task

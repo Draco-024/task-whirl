@@ -20,7 +20,7 @@ const TaskJar = ({ onClick, animate = false, size = "medium" }: TaskJarProps) =>
         return "w-48 h-56";
       case "medium":
       default:
-        return "w-32 h-40";
+        return "w-36 h-44";
     }
   }, [size]);
 
@@ -36,22 +36,22 @@ const TaskJar = ({ onClick, animate = false, size = "medium" }: TaskJarProps) =>
         "relative cursor-pointer transition-transform", 
         jarSize,
         animate && "animate-float",
-        onClick && "hover:scale-105 active:scale-95"
+        onClick && "hover:scale-110 active:scale-95"
       )}
       onClick={onClick}
     >
-      {/* Jar container */}
-      <div className="absolute inset-0 rounded-b-2xl rounded-t-lg border-4 border-taskjar-dark bg-white/20 backdrop-blur-sm overflow-hidden">
-        {/* Task papers */}
+      {/* Glass effect for jar */}
+      <div className="absolute inset-0 rounded-b-2xl rounded-t-lg border-4 border-taskjar-dark bg-white/30 backdrop-blur-sm overflow-hidden shadow-lg">
+        {/* Task papers with gradient */}
         <div 
           className={cn(
-            "absolute bottom-0 left-0 right-0 bg-taskjar-light transition-all duration-500",
+            "absolute bottom-0 left-0 right-0 bg-gradient-to-b from-taskjar-light to-taskjar transition-all duration-500",
             fillLevel
           )}
         >
           {tasks.length > 0 && (
             <div className="absolute inset-0">
-              {Array.from({ length: Math.min(tasks.length, 15) }).map((_, i) => (
+              {Array.from({ length: Math.min(tasks.length * 2, 25) }).map((_, i) => (
                 <div 
                   key={i}
                   className="absolute bg-white rounded-sm shadow-sm p-1"
@@ -69,12 +69,14 @@ const TaskJar = ({ onClick, animate = false, size = "medium" }: TaskJarProps) =>
           )}
         </div>
         
-        {/* Jar lid */}
-        <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 w-[90%] h-3 bg-taskjar-dark rounded-t-lg z-10" />
+        {/* Jar lid with shine effect */}
+        <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 w-[90%] h-4 bg-taskjar-dark rounded-t-lg z-10">
+          <div className="absolute top-1 left-1/4 w-1/2 h-1 bg-white/30 rounded-full"></div>
+        </div>
       </div>
       
       {/* Jar label */}
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-sm px-2 py-1 rounded text-xs font-medium text-taskjar-dark">
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-medium text-taskjar-dark shadow-sm border border-taskjar-light/50">
         {tasks.length} {tasks.length === 1 ? 'task' : 'tasks'}
       </div>
     </div>
