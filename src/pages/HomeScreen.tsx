@@ -55,13 +55,13 @@ const HomeScreen = () => {
   return (
     <Layout title="Task Jar" showSettingsButton>
       <div className="flex flex-col items-center space-y-6">
-        <div id="task-jar" className="my-4">
+        <div id="task-jar" className="my-4 transition-transform hover:scale-105">
           <TaskJar onClick={handlePickTask} animate />
         </div>
 
         <Button 
           onClick={handlePickTask} 
-          className="bg-taskjar hover:bg-taskjar-dark w-full max-w-md"
+          className="bg-taskjar hover:bg-taskjar-dark w-full max-w-md transition-all duration-300 hover:shadow-lg"
           disabled={tasks.length === 0}
         >
           Pick a Task
@@ -70,7 +70,9 @@ const HomeScreen = () => {
         <div className="w-full max-w-md">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-lg font-semibold">Your Tasks</h2>
-            <span className="text-muted-foreground text-sm">{tasks.length} {tasks.length === 1 ? 'task' : 'tasks'}</span>
+            <span className="text-muted-foreground text-sm px-2 py-1 bg-secondary rounded-full">
+              {tasks.length} {tasks.length === 1 ? 'task' : 'tasks'}
+            </span>
           </div>
 
           {tasks.length === 0 ? (
@@ -79,7 +81,7 @@ const HomeScreen = () => {
               <p className="text-muted-foreground text-sm mt-2">Add some tasks to get started!</p>
             </div>
           ) : (
-            <div className="space-y-2 max-h-[50vh] overflow-y-auto pr-1">
+            <div className="space-y-2 max-h-[50vh] overflow-y-auto pr-1 rounded-lg">
               {tasks.map((task) => (
                 <TaskItem key={task.id} task={task} />
               ))}
@@ -89,7 +91,7 @@ const HomeScreen = () => {
       </div>
 
       <Button
-        className="fixed bottom-6 right-6 rounded-full w-14 h-14 shadow-lg bg-taskjar hover:bg-taskjar-dark"
+        className="fixed bottom-6 right-6 rounded-full w-14 h-14 shadow-lg bg-taskjar hover:bg-taskjar-dark transition-transform hover:scale-110"
         onClick={() => navigate("/add-task")}
       >
         <Plus className="w-6 h-6" />

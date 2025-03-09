@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Task, useTaskContext } from "@/context/TaskContext";
 import { Trash2 } from "lucide-react";
@@ -38,10 +39,15 @@ const TaskItem = ({ task }: TaskItemProps) => {
     }
   };
 
+  const handleDelete = () => {
+    setIsDeleting(true);
+    setTimeout(() => deleteTask(task.id), 300);
+  };
+
   return (
     <div 
       className={cn(
-        "bg-card rounded-lg shadow-sm mb-2 overflow-hidden transition-all duration-300",
+        "bg-card rounded-lg shadow-sm mb-2 overflow-hidden transition-all duration-300 relative",
         isDeleting && "opacity-0 scale-95"
       )}
     >
@@ -58,16 +64,20 @@ const TaskItem = ({ task }: TaskItemProps) => {
         <Button
           variant="ghost"
           size="icon"
-          className="text-muted-foreground hover:text-destructive"
-          onClick={() => {
-            setIsDeleting(true);
-            setTimeout(() => deleteTask(task.id), 300);
-          }}
+          onClick={handleDelete}
+          className="text-muted-foreground hover:text-destructive transition-colors duration-200"
+          aria-label="Delete task"
         >
-          <Trash2 className="h-5 w-5" />
+          <Trash2 className="h-4 w-4" />
         </Button>
       </div>
-      <div className="absolute right-0 top-0 bottom-0 flex items-center bg-destructive text-white px-4">
+      <div 
+        className="absolute right-0 top-0 bottom-0 flex items-center justify-center bg-gradient-to-r from-destructive/80 to-destructive text-destructive-foreground px-4 transition-opacity duration-300"
+        style={{ 
+          opacity: translateX < 0 ? Math.min(Math.abs(translateX) / 50, 1) : 0,
+          width: '80px'
+        }}
+      >
         <Trash2 className="h-5 w-5" />
       </div>
     </div>
